@@ -1,6 +1,9 @@
 package manage.store.test.util;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -14,7 +17,7 @@ public interface CommonUtils {
      * @param length 문자열 길이
      * @return 랜덤 문자열
      */
-     static String getRandomString(int length) {
+    static String getRandomString(int length) {
         String randomString = "";
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         for (int i = 0; i < length; i++) {
@@ -25,28 +28,47 @@ public interface CommonUtils {
     }
 
     /**
+     * 랜덤 LocalDateTime 객체 반환
+     * @return 랜덤 LocalDateTime
+     */
+    static LocalDateTime getRandomLocalDateTime() {
+        LocalDateTime startDate = LocalDateTime.of(1970, 1, 1, 0, 0, 0);
+        LocalDateTime endDate = LocalDateTime.now();
+
+        long startEpochSecond = startDate.toEpochSecond(ZoneOffset.UTC);
+        long endEpochSecond = endDate.toEpochSecond(ZoneOffset.UTC);
+
+        long randomEpochSecond = ThreadLocalRandom.current().nextLong(startEpochSecond, endEpochSecond);
+
+        return LocalDateTime.ofEpochSecond(randomEpochSecond, 0, ZoneOffset.UTC);
+    }
+
+    /**
+     * 랜덤 LocalDate 객체 반환
+     * @return 랜덤 LocalDate
+     */
+    static LocalDate getRandomLocalDate() {
+        return getRandomLocalDateTime().toLocalDate();
+    }
+
+    /**
      * 주어진 형식에 맞게 형식화된 Random 날짜 문자열 반환
      * @param format 형식
      * @return 형식화된 날짜 문자열
      */
-    static String getRandomDate(String format) {
-        LocalDate startDate = LocalDate.of(1970, 1, 1);
-        LocalDate endDate = LocalDate.now();
-
-        long randomSec = ThreadLocalRandom.current().nextLong(startDate.toEpochDay(), endDate.toEpochDay());
-
-        LocalDate randomDate = LocalDate.ofEpochDay(randomSec);
+    static String getRandomDateTime(String format) {
+        LocalDateTime randomDateTime = getRandomLocalDateTime();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
 
-        return formatter.format(randomDate);
+        return formatter.format(randomDateTime);
     }
 
     /**
      * yyyy-MM-dd 형식의 랜덤 날짜 문자열 반환
      * @return yyyy-MM-dd 형식의 랜덤 날짜 문자열
      */
-    static String getRandomDate() {
-        return getRandomDate("yyyy-MM-dd");
+    static String getRandomDateTime() {
+        return getRandomDateTime("yyyy-MM-dd HH:mm:ss.SSS");
     }
 
     /**
