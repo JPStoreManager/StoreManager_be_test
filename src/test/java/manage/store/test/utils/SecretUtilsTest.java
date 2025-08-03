@@ -1,9 +1,9 @@
 package manage.store.test.utils;
 
 
-import manage.store.common.exception.InvalidParameterException;
-import manage.store.common.consts.Tags;
 import manage.store.common.utils.SecretUtils;
+import manage.store.domain.consts.Tags;
+import manage.store.domain.exception.InvalidParameterException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;

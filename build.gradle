@@ -20,7 +20,10 @@ dependencies {
     implementation 'org.testcontainers:junit-jupiter:1.20.3'
 
     implementation project(':user')
+    implementation project(':domain')
+    
     testImplementation project(':common')
+    testImplementation project(':domain')
 }
 
 test {
