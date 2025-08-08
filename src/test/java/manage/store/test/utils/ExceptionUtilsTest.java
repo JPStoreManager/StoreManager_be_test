@@ -2,7 +2,7 @@ package manage.store.test.utils;
 
 import manage.store.common.utils.ExceptionUtils;
 import manage.store.domain.consts.Tags;
-import manage.store.domain.exception.InternalErrorException;
+import manage.store.domain.exception.common.InternalErrorException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
